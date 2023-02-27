@@ -17,7 +17,9 @@ def tags():
     # credential = request.cookies.get('credential')
     # do something
 
-    text = request.form['text']
+    # text = request.form['text']
+    text = request.args.get('text')
+
     ents = nlp(text).ents
     return {
         "tags": [(ent.text, ent.label_) for ent in ents]
