@@ -48,4 +48,5 @@ if __name__ == '__main__':
     nlp = en_core_web_sm.load()
 
     # nlp.add_pipe('spacytextblob')
-    app.run()
+    # app.run() for localhost
+    app.run(host='0.0.0.0')
