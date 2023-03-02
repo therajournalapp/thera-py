@@ -41,7 +41,7 @@ def tags():
     freq_word = Counter(keywords)
     freq_word.most_common(5)
     
-    response = flask.jsonify({
+    response = jsonify({
         "tags": [(ent.text, ent.label_) for ent in ents],
         "keywords": [w[0] for w in freq_word.most_common(5)],
     })
@@ -90,7 +90,7 @@ def summary():
     summary_sentences = nlargest(3, sent_strength, key=sent_strength.get)
     final_sentences = [w.text for w in summary_sentences]
     summary = ' '.join(final_sentences)
-    response = flask.jsonify({
+    response = jsonify({
         "summary" : summary
     })
     response.headers.add('Access-Control-Allow-Origin', '*')
@@ -114,7 +114,7 @@ def sentiment():
     print(sentiments)
     polarities = str(doc._.polarity).split(' ')
     
-    response = flask.jsonify({
+    response = jsonify({
         "neg": polarities[0][4:],
         "neu": polarities[1][4:],
         "pos": polarities[2][4:],
