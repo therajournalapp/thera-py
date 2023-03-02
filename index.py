@@ -1,4 +1,5 @@
 from flask import *
+from flask_cors import CORS
 import en_core_web_sm
 import spacy
 import asent
