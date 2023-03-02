@@ -41,10 +41,12 @@ def tags():
     freq_word = Counter(keywords)
     freq_word.most_common(5)
     
-    return {
+    response = flask.jsonify({
         "tags": [(ent.text, ent.label_) for ent in ents],
         "keywords": [w[0] for w in freq_word.most_common(5)],
-    }
+    })
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 @app.route("/summary", methods=['POST'])
 def summary():
@@ -58,9 +60,12 @@ def summary():
 
     # only do it on more than a few sentences
     if(len(list(doc.sents)) < 5):
-        return {
+        response = flask.jsonify({
             "summary": doc.text
-        }
+        })
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+    
     keywords = []
     # only consider nouns, adjectives, verbs and adverbs
     for token in doc:
@@ -85,9 +90,11 @@ def summary():
     summary_sentences = nlargest(3, sent_strength, key=sent_strength.get)
     final_sentences = [w.text for w in summary_sentences]
     summary = ' '.join(final_sentences)
-    return {
+    response = flask.jsonify({
         "summary" : summary
-    }
+    })
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 @app.route("/sentiment", methods=['POST'])
 def sentiment():
@@ -106,12 +113,15 @@ def sentiment():
     print(doc._.polarity)
     print(sentiments)
     polarities = str(doc._.polarity).split(' ')
-    return {
+    
+    response = flask.jsonify({
         "neg": polarities[0][4:],
         "neu": polarities[1][4:],
         "pos": polarities[2][4:],
         "compound": polarities[3][9:],
-    }
+    })
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 if __name__ == '__main__':
     # change the nltk data directory
