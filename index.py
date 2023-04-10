@@ -61,7 +61,7 @@ def summary():
 
     # only do it on more than a few sentences
     if(len(list(doc.sents)) < 5):
-        response = flask.jsonify({
+        response = jsonify({
             "summary": doc.text
         })
         response.headers.add('Access-Control-Allow-Origin', '*')
