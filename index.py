@@ -9,6 +9,7 @@ from heapq import nlargest
 import json
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route("/")
 def home():
@@ -137,5 +138,5 @@ if __name__ == '__main__':
     nlp.add_pipe('asent_en_v1')
 
     # nlp.add_pipe('spacytextblob')
-    app.run() # for localhost
-    #app.run(host='0.0.0.0', port=8080)
+    #app.run() # for localhost
+    app.run(host='0.0.0.0', port=8080)
